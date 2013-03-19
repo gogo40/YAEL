@@ -1,12 +1,12 @@
 /* 
-maxwell
-maxwell: lista de funções
+yael
+yael: lista de funções
 Autor: Pericles Lopes Machado
 */
 
 
-#ifndef maxwell_FUNCTION_LIST_H
-#define maxwell_FUNCTION_LIST_H
+#ifndef yael_FUNCTION_LIST_H
+#define yael_FUNCTION_LIST_H
 
 #include <time.h>
 

@@ -1,12 +1,12 @@
 /* 
-maxwell
-Parser maxwell_db_parser
+yael
+Parser yael_parser
 Autor: Pericles Lopes Machado
 */
 
 %{
 
-#include "maxwell_db.h"
+#include "yael.h"
 
 FILE* plog;
 FILE* pout;
@@ -31,17 +31,17 @@ map<string, bool> isvar;
 
 map<string, bool> isclass;
 map<string, bool> isobj;
-map<string, sclass> maxwellClass;
-map<string, sobj> maxwellObj;
+map<string, sclass> yaelClass;
+map<string, sobj> yaelObj;
 
 inline
 double eval(Tokens* in){
-	return eval(&var, &isvar, &isclass, &isobj, &maxwellClass, &maxwellObj, &vect_l, &isvect, in);
+	return eval(&var, &isvar, &isclass, &isobj, &yaelClass, &yaelObj, &vect_l, &isvect, in);
 }
 
 inline
 double interp(iTokens* in){
-	return interp(&var, &isvar, &isclass, &isobj, &maxwellClass, &maxwellObj,&vect_l,&isvect, in);
+	return interp(&var, &isvar, &isclass, &isobj, &yaelClass, &yaelObj,&vect_l,&isvect, in);
 }
 
 void build_o(build_obj* in){
@@ -53,10 +53,10 @@ void build_o(build_obj* in){
 	}
 	
 	isobj[out]=true;
-	maxwellObj[out].pai=*in->class_;
-	maxwellObj[out].x=eval(in->x);
-	maxwellObj[out].y=eval(in->y);
-	maxwellObj[out].z=eval(in->z);
+	yaelObj[out].pai=*in->class_;
+	yaelObj[out].x=eval(in->x);
+	yaelObj[out].y=eval(in->y);
+	yaelObj[out].z=eval(in->z);
 }
 
 void build_o(build_obj* in,
@@ -64,24 +64,24 @@ map<string, double>* var,
 map<string, bool>* isvar,
 map<string, bool>* isclass,
 map<string, bool>* isobj,
-map<string, sclass>* maxwellClass,
-map<string, sobj>* maxwellObj,
+map<string, sclass>* yaelClass,
+map<string, sobj>* yaelObj,
 map<string,vect>* vect_l,
 map<string,bool>* isvect){
 	string out;
 	out=*in->obj_;
 	if(in->isv){
-		sprintf(buffer,"%.0lf",eval(var, isvar, isclass, isobj, maxwellClass, maxwellObj, vect_l, isvect, in->i));
+		sprintf(buffer,"%.0lf",eval(var, isvar, isclass, isobj, yaelClass, yaelObj, vect_l, isvect, in->i));
 		out= out +"[" +buffer + "]";
 	}
 	
 	(*isobj)[out]=true;
-	(*maxwellObj)[out].pai=*in->class_;
+	(*yaelObj)[out].pai=*in->class_;
 	 
 
-	(*maxwellObj)[out].x=eval(var, isvar, isclass, isobj, maxwellClass, maxwellObj, vect_l, isvect, in->x);
-	(*maxwellObj)[out].y=eval(var, isvar, isclass, isobj, maxwellClass, maxwellObj, vect_l, isvect, in->y);
-	(*maxwellObj)[out].z=eval(var, isvar, isclass, isobj, maxwellClass, maxwellObj, vect_l, isvect, in->z);
+	(*yaelObj)[out].x=eval(var, isvar, isclass, isobj, yaelClass, yaelObj, vect_l, isvect, in->x);
+	(*yaelObj)[out].y=eval(var, isvar, isclass, isobj, yaelClass, yaelObj, vect_l, isvect, in->y);
+	(*yaelObj)[out].z=eval(var, isvar, isclass, isobj, yaelClass, yaelObj, vect_l, isvect, in->z);
 }
 
 typedef vector<string> vs;
@@ -160,7 +160,7 @@ typedef pair<vs*,vi*> func_arg;
 %type<itk> while_cond
 %type<itk> if_else_cond
 %type<itk> cmd_interp
-%type<bobj> build_maxwell_obj
+%type<bobj> build_yael_obj
 %type<vS> class_father;
 %type<fa> list_name_args;
 %type<sf> class_fields;
@@ -208,9 +208,9 @@ init class_def ';'
 		printf("Usando: %s\n",$3->c_str()); 
 		fprintf(plog,"Usando: %s\n",$3->c_str()); 
 
-		//printf("size= %d\n",maxwellClass.size());
-		loadFile((*$3+".mo").c_str(),maxwellClass,isclass,maxwellObj,isobj,__path);
-		//printf("size= %d\n",maxwellClass.size());
+		//printf("size= %d\n",yaelClass.size());
+		loadFile((*$3+".mo").c_str(),yaelClass,isclass,yaelObj,isobj,__path);
+		//printf("size= %d\n",yaelClass.size());
 		delete $3; 
 	}
 }
@@ -220,9 +220,9 @@ init class_def ';'
 	if(nerrors==0){
 		printf("Usando: %s\n",$2->c_str());
 		fprintf(plog,"Usando: %s\n",$2->c_str());	
-		//printf("size= %d\n",maxwellClass.size());
-		loadFile((*$2+".mo").c_str(),maxwellClass,isclass,maxwellObj,isobj,__path); 
-		//printf("size= %d\n",maxwellClass.size());
+		//printf("size= %d\n",yaelClass.size());
+		loadFile((*$2+".mo").c_str(),yaelClass,isclass,yaelObj,isobj,__path); 
+		//printf("size= %d\n",yaelClass.size());
 		delete $2; 
 	}
 }
@@ -309,7 +309,7 @@ class_def:
 CLASS  ID '{' class_fields '}'  
 { 
 	isclass[*$2]=true;
-	maxwellClass[*$2].add_fields($4->first,$4->second);
+	yaelClass[*$2].add_fields($4->first,$4->second);
 	delete $2;  
 	delete $4;
 }
@@ -317,17 +317,17 @@ CLASS  ID '{' class_fields '}'
 CLASS  ID ':' class_father '{' class_fields '}'  
 { 
 	isclass[*$2]=true;
-	maxwellClass[*$2].add_fields($6->first,$6->second);
+	yaelClass[*$2].add_fields($6->first,$6->second);
 	
 	delete $6;
 	
 	/*Adiciona campos herdados*/
-	sclass* p=&maxwellClass[*$2];
+	sclass* p=&yaelClass[*$2];
 	for(int i=0;i<$4->size();i++){
 		sclass* c;
 		map<string,pair<Matrix*,sf*> >::iterator it;
 		
-		c=&maxwellClass[(*$4)[i]];
+		c=&yaelClass[(*$4)[i]];
 		it=c->field.begin();
 		
 		for(;it!=c->field.end();it++){
@@ -499,10 +499,10 @@ PRINT exp ';'
 cmd_interp PRINT exp ';'
 { $$=$1; $$->push_back(iToken(PRINT,$3)); }
 |
-build_maxwell_obj ';'
+build_yael_obj ';'
 { $$=new iTokens(); $$->push_back(iToken(BUILD_OBJ,$1)); }
 |
-cmd_interp build_maxwell_obj ';'
+cmd_interp build_yael_obj ';'
 { $$=$1; $$->push_back(iToken(BUILD_OBJ,$2)); }
 |
 if_else_cond
@@ -643,9 +643,9 @@ IF '(' exp ')' '{' cmd_interp '}' ELSE '{' cmd_interp '}'
 ;
 
 //////////////////////////////////////
-//Defini��es para constu��o de objetos maxwell//
+//Defini��es para constu��o de objetos yael//
 //////////////////////////////////////
-build_maxwell_obj:
+build_yael_obj:
 CLASS_ID ID '(' exp ',' exp ',' exp ')' 
 { $$=new build_obj($1,$2,$4,$6,$8); }
 |
@@ -791,9 +791,9 @@ exp
 
 #include "lex.yy.c"
 
-#include "maxwell_function_list.h"
-#include "maxwell_db_eval.cpp"
-#include "maxwell_db_interp.cpp"
+#include "yael_function_list.h"
+#include "yael_eval.cpp"
+#include "yael_interp.cpp"
 
 char* __yy_file_name;
 
@@ -807,9 +807,9 @@ yyerror (char const *s)
 
 void init(){
 	nlines=1; nerrors=0;
-	//setOutput("maxwell_out");
-	plog=fopen((__path+"/maxwell_log").c_str(),"w+");
-	pout=fopen((__path+"/maxwell_out").c_str(),"w+");
+	//setOutput("yael_out");
+	plog=fopen((__path+"/yael_log").c_str(),"w+");
+	pout=fopen((__path+"/yael_out").c_str(),"w+");
 }
 
 int main(int argc, char** argv )
@@ -859,7 +859,7 @@ int main(int argc, char** argv )
 		for(int k=0;k<file_in.size()&& k<p;k++) out+=file_in[k];
 		out+=".mo";
 		
-		saveFile(out.c_str(),maxwellClass,maxwellObj);
+		saveFile(out.c_str(),yaelClass,yaelObj);
 		fprintf (stderr,"Script compilado com sucesso!\n");
 		fprintf (plog, "Script compilado com sucesso!\n");
 	}else{
@@ -867,7 +867,7 @@ int main(int argc, char** argv )
 		fprintf (plog, "%s: Foram encontrados %d erros sint�ticos\n", __yy_file_name,nerrors);
 	}
 
-	if(nerrors==0) saveFile(out.c_str(),maxwellClass,maxwellObj);
+	if(nerrors==0) saveFile(out.c_str(),yaelClass,yaelObj);
 	
 	fclose(plog);
 	fclose(pout);

@@ -1,10 +1,10 @@
 /* 
-maxwell
-Interpretador de intruções maxwell_db
+yael
+Interpretador de intruções yael
 Autor: Péricles Lopes Machado
 */
 
-#include "maxwell_db.h"
+#include "yael.h"
 
 
 double interp(
@@ -12,8 +12,8 @@ map<string, double>* var,
 map<string, bool>* isvar,
 map<string, bool>* isclass,
 map<string, bool>* isobj,
-map<string, sclass>* maxwellClass,
-map<string, sobj>* maxwellObj,
+map<string, sclass>* yaelClass,
+map<string, sobj>* yaelObj,
 map<string,vect>* vect_l,
 map<string,bool>* isvect,
 iTokens* in
@@ -40,13 +40,13 @@ iTokens* in
 			break;
 			
 			case IF:
-				v=eval(var, isvar, isclass, isobj, maxwellClass, maxwellObj, vect_l,isvect,ip->lval.ifelse->expr);
+				v=eval(var, isvar, isclass, isobj, yaelClass, yaelObj, vect_l,isvect,ip->lval.ifelse->expr);
 				if(cmp(v,0)==0 || isbreak || iscontinue) i+=ip->lval.ifelse->false_next;
 				else i+=ip->next;
 			break;
 			
 			case WHILE:
-				v=eval(var, isvar, isclass, isobj, maxwellClass, maxwellObj, vect_l,isvect,ip->lval.while_->expr);
+				v=eval(var, isvar, isclass, isobj, yaelClass, yaelObj, vect_l,isvect,ip->lval.while_->expr);
 				if(cmp(v,0)==0 || isbreak){ i+=ip->lval.while_->false_next; isbreak=iscontinue=false;  }
 				else { i+=ip->next;iscontinue=false;}
 			break;
@@ -54,7 +54,7 @@ iTokens* in
 			case END_WHILE:
 				i+=ip->next;
 				ip=&(*in)[i];
-				v=eval(var, isvar, isclass, isobj, maxwellClass, maxwellObj, vect_l,isvect,ip->lval.while_->expr);
+				v=eval(var, isvar, isclass, isobj, yaelClass, yaelObj, vect_l,isvect,ip->lval.while_->expr);
 				if(cmp(v,0)==0 ||isbreak) { i+=ip->lval.while_->false_next; isbreak=iscontinue=false; }
 				else { i+=ip->next; iscontinue=false;}
 			break;
@@ -63,34 +63,34 @@ iTokens* in
 				if(iscontinue){
 					i--;
 					ip=&(*in)[i];
-					eval(var, isvar, isclass, isobj, maxwellClass, maxwellObj, vect_l,isvect,ip->lval.expr);
+					eval(var, isvar, isclass, isobj, yaelClass, yaelObj, vect_l,isvect,ip->lval.expr);
 					i++;
 					ip=&(*in)[i];
 				}
 				i+=ip->next;
 				ip=&(*in)[i];
-				v=eval(var, isvar, isclass, isobj, maxwellClass, maxwellObj, vect_l,isvect,ip->lval.while_->expr);
+				v=eval(var, isvar, isclass, isobj, yaelClass, yaelObj, vect_l,isvect,ip->lval.while_->expr);
 				if(cmp(v,0)==0 ||isbreak) { i+=ip->lval.while_->false_next; isbreak=iscontinue=false; }
 				else { i+=ip->next; iscontinue=false;}
 			break;
 			
 			case EXPR:
 				if(!(isbreak||iscontinue))
-					eval(var, isvar, isclass, isobj, maxwellClass, maxwellObj, vect_l,isvect,ip->lval.expr);
+					eval(var, isvar, isclass, isobj, yaelClass, yaelObj, vect_l,isvect,ip->lval.expr);
 				i+=ip->next;
 			break;
 			
 			case BUILD_OBJ:
 				if(!(isbreak||iscontinue)){
-					build_o(ip->lval.obj,var, isvar, isclass, isobj, maxwellClass, maxwellObj, vect_l,isvect);
+					build_o(ip->lval.obj,var, isvar, isclass, isobj, yaelClass, yaelObj, vect_l,isvect);
 				}
 				i+=ip->next;
 			break;
 			
 			case PRINT:
 				if(!(isbreak||iscontinue)){
-					printf("%lf",eval(var, isvar, isclass, isobj, maxwellClass, maxwellObj, vect_l,isvect,ip->lval.expr));
-					fprintf(pout,"%lf",eval(var, isvar, isclass, isobj, maxwellClass, maxwellObj, vect_l,isvect,ip->lval.expr));
+					printf("%lf",eval(var, isvar, isclass, isobj, yaelClass, yaelObj, vect_l,isvect,ip->lval.expr));
+					fprintf(pout,"%lf",eval(var, isvar, isclass, isobj, yaelClass, yaelObj, vect_l,isvect,ip->lval.expr));
 				}
 				i+=ip->next;
 			break;
@@ -105,8 +105,8 @@ iTokens* in
 			
 			case ECHO_:
 				if(!(isbreak||iscontinue)){
-					printf("%lf\n",eval(var, isvar, isclass, isobj, maxwellClass, maxwellObj, vect_l,isvect,ip->lval.expr));
-					fprintf(pout,"%lf\n",eval(var, isvar, isclass, isobj, maxwellClass, maxwellObj, vect_l,isvect,ip->lval.expr));
+					printf("%lf\n",eval(var, isvar, isclass, isobj, yaelClass, yaelObj, vect_l,isvect,ip->lval.expr));
+					fprintf(pout,"%lf\n",eval(var, isvar, isclass, isobj, yaelClass, yaelObj, vect_l,isvect,ip->lval.expr));
 				}
 				i+=ip->next;
 			break;
@@ -121,7 +121,7 @@ iTokens* in
 			
 			case RETURN:
 				if(!(isbreak||iscontinue)){
-					v=eval(var, isvar, isclass, isobj, maxwellClass, maxwellObj, vect_l,isvect,ip->lval.expr);
+					v=eval(var, isvar, isclass, isobj, yaelClass, yaelObj, vect_l,isvect,ip->lval.expr);
 					return v;
 				}
 				i+=ip->next;

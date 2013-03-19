@@ -1,6 +1,6 @@
 /* 
-maxwell
-Lexer maxwell_db_lexer
+yael
+Lexer yael_lexer
 Autor: Péricles Lopes Machado
 */
 DIGIT    [0-9]

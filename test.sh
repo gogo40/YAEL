@@ -1,19 +1,19 @@
 echo
 echo "Teste 001"
 echo
-./maxwell_dbc tests/t_001.mw
+./yaelc tests/t_001.yl
 
 echo
 echo "Teste 002"
 echo
-./maxwell_dbc tests/t_002.mw
+./yaelc tests/t_002.yl
 
 echo
 echo "Teste 003"
 echo
-./maxwell_dbc tests/t_003.mw
+./yaelc tests/t_003.yl
 
 echo
 echo "Teste 004"
 echo
-./maxwell_dbc tests/t_004.mw
+./yaelc tests/t_004.yl

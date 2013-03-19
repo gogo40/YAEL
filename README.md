@@ -8,6 +8,6 @@ Sua aplicação inicial foi na descrição de estruturas de entrada utilizadas p
 
 Este código só se encontra aqui por razões "históricas e afetivas", pois serve como marcação para a minha evolução de estilo.
 
-O compilador é o programa maxwell_dbc. Depois de compilar o script, pode-se utilizar o programa maxwell_db para se gerar os arquivos de entrada para o simulador num formato especificado.
+O compilador é o programa yaelc. Depois de compilar o script, pode-se utilizar o programa yael para se gerar os arquivos de entrada para o simulador num formato especificado.
 
 Futuramente, irei adicionar a documentação de especificação dessa linguagem.

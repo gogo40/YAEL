@@ -1,18 +1,18 @@
 /* 
-maxwell
-Avaliação de expressões maxwell_db
+yeal
+Avaliação de expressões yael
 Autor: Péricles Lopes Machado
 */
 
-#include "maxwell_db.h"
+#include "yael.h"
 	
 double eval(
 map<string, double>* var,
 map<string, bool>* isvar,
 map<string, bool>* isclass,
 map<string, bool>* isobj,
-map<string, sclass>* maxwellClass,
-map<string, sobj>* maxwellObj,
+map<string, sclass>* yaelClass,
+map<string, sobj>* yaelObj,
 map<string,vect>* vect_l,
 map<string,bool>* isvect,
 Tokens* in
@@ -242,7 +242,7 @@ Tokens* in
 				}
 				fvar=f->var;
 				fvect=&f->vect_l;
-				v=interp(&fvar, isvar, isclass, isobj, maxwellClass, maxwellObj,fvect,isvect, f->f);
+				v=interp(&fvar, isvar, isclass, isobj, yaelClass, yaelObj,fvect,isvect, f->f);
 				Q.push(Token(NUM,v));
 			break;
 			

@@ -550,8 +550,8 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "lexer.l"
 /* 
-maxwell
-Lexer maxwell_db_lexer
+yael
+Lexer yael_lexer
 Autor: Péricles Lopes Machado
 */
 #line 558 "lex.yy.c"

@@ -1,10 +1,10 @@
 /* 
-maxwell
-gerador de entradas pro maxwell do maxwell_db
-Autor: P�ricles Lopes Machado
+yael
+gerador de entradas pro simulador maxwell do yael
+Autor: Pericles Lopes Machado
 */
 
-#include "maxwell_db.h"
+#include "yael.h"
 #include <string.h>
 
 int main(int argc, char** argv)
@@ -31,19 +31,19 @@ int main(int argc, char** argv)
 	}
 	
 	map<string, bool> isobj;
-	map<string, sobj> maxwellObj;
+	map<string, sobj> yaelObj;
 	map<string, bool> isclass;
-	map<string, sclass> maxwellClass;
+	map<string, sclass> yaelClass;
 	string ___path("");
 	___path="";
 	for(l=file_in.size()-1;l>-1&&(file_in[l]!='/'&&file_in[l]!='\\');l--);
 	for(int k=0;k<file_in.size()&&k<l;k++) ___path+=file_in[k];
 	printf("Caminho:%s\n",___path.c_str());
 	
-	loadFile(file_in.c_str(),maxwellClass, isclass,maxwellObj,isobj,___path);
+	loadFile(file_in.c_str(),yaelClass, isclass,yaelObj,isobj,___path);
 	
-	for(map<string,sclass>::iterator it=maxwellClass.begin();
-		it!=maxwellClass.end();it++)
+	for(map<string,sclass>::iterator it=yaelClass.begin();
+		it!=yaelClass.end();it++)
 		for(map<string,pair<Matrix*,sf*> >::iterator p=it->second.field.begin();
 			p!=it->second.field.end();p++)
 			if(files.find(p->first) == files.end()){
@@ -51,10 +51,10 @@ int main(int argc, char** argv)
 				field[p->first]= *(p->second.second);
 			}
 	
-	for(map<string,sobj>::iterator it=maxwellObj.begin();
-		it!=maxwellObj.end();it++){
+	for(map<string,sobj>::iterator it=yaelObj.begin();
+		it!=yaelObj.end();it++){
 		
-		sclass* pai=&maxwellClass[it->second.pai];
+		sclass* pai=&yaelClass[it->second.pai];
 		dx=(int)(it->second.x); 
 		dy=(int)(it->second.y); 
 		dz=(int)(it->second.z);

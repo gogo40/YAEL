@@ -1,11 +1,11 @@
 /* 
-maxwell
-funções uteis maxwell_db
+yael
+funções uteis yael
 Autor: Péricles Lopes Machado
 */
 
-#ifndef maxwell_DB_H
-#define maxwell_DB_H
+#ifndef yael_DB_H
+#define yael_DB_H
 
 #include <math.h>
 #include <stdio.h>
@@ -66,7 +66,7 @@ struct sf{
 	sf(int nx=0, int ny=0, int nz=0, int tam=0,int ini_p=0):nx(nx),ny(ny),nz(nz),tam(tam),ini_p(ini_p){}
 };
 
-//Uma classe maxwell
+//Uma classe yael
 struct sclass{
 		void add_fields(vector<string>& fname, vector< pair<Matrix*,sf*> >& v){
 			for(int i=0;i<fname.size();i++) field[fname[i]]=v[i];
@@ -80,7 +80,7 @@ struct sobj{
 	double x, y, z;
 };
 
-//Um token para expressoes maxwell
+//Um token para expressoes yael
 struct Token{
 	int tk;
 	union l{ string* name; double value; int narg; vect_pos* vp; };
@@ -92,7 +92,7 @@ struct Token{
 	Token(int tk, vect_pos* v):tk(tk){ lval.vp=v; }
 };
 
-//Vetor de tokens maxwell
+//Vetor de tokens yael
 typedef vector<Token> Tokens;
 
 struct build_obj{
@@ -193,14 +193,14 @@ struct ret_type{
 	vect* vet;
 };
 
-//Avaliador de expressões maxwell
+//Avaliador de expressões yael
 double eval(
 map<string, double>* var,
 map<string, bool>* isvar,
 map<string, bool>* isclass,
 map<string, bool>* isobj,
-map<string, sclass>* maxwellClass,
-map<string, sobj>* maxwellObj,
+map<string, sclass>* yaelClass,
+map<string, sobj>* yaelObj,
 map<string,vect>* vect_l,
 map<string,bool>* isvect,
 Tokens* in
@@ -214,8 +214,8 @@ map<string, double>* var,
 map<string, bool>* isvar,
 map<string, bool>* isclass,
 map<string, bool>* isobj,
-map<string, sclass>* maxwellClass,
-map<string, sobj>* maxwellObj,
+map<string, sclass>* yaelClass,
+map<string, sobj>* yaelObj,
 map<string,vect>* vect_l,
 map<string,bool>* isvect,
 iTokens* in
@@ -234,8 +234,8 @@ map<string, double>* var,
 map<string, bool>* isvar,
 map<string, bool>* isclass,
 map<string, bool>* isobj,
-map<string, sclass>* maxwellClass,
-map<string, sobj>* maxwellObj,
+map<string, sclass>* yaelClass,
+map<string, sobj>* yaelObj,
 map<string,vect>* vect_l,
 map<string,bool>* isvect);
 
@@ -284,13 +284,13 @@ extern "C"{
 };
 
 void loadFile(const char* fname, 
-				map<string,sclass>& maxwellClass, map<string,bool>& isclass, 
-				map<string,sobj>& maxwellObj, map<string,bool>& isobj, string& __path
+				map<string,sclass>& yaelClass, map<string,bool>& isclass, 
+				map<string,sobj>& yaelObj, map<string,bool>& isobj, string& __path
 			);
 
 void saveFile(const char* fname, 
-				map<string,sclass>& maxwellClass,  
-				map<string,sobj>& maxwellObj
+				map<string,sclass>& yaelClass,  
+				map<string,sobj>& yaelObj
 			);
 #endif
 

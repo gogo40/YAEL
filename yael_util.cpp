@@ -1,10 +1,10 @@
 /* 
-maxwell
-fun��es uteis maxwell_db
+yael
+fun��es uteis yael
 Autor: P�ricles Lopes Machado
 */
 
-#include "maxwell_db.h"
+#include "yael.h"
 
 /*
 Formato de arquivo name.sago:
@@ -27,8 +27,8 @@ Segue-se NO defini��es de objetos:{
 }
 */
 	
-void loadFile(const char* fname, map<string,sclass>& maxwellClass, map<string,bool>& isclass, 
-				map<string,sobj>& maxwellObj, map<string,bool>& isobj, string& __path
+void loadFile(const char* fname, map<string,sclass>& yaelClass, map<string,bool>& isclass, 
+				map<string,sobj>& yaelObj, map<string,bool>& isobj, string& __path
 			)
 {
 	
@@ -55,7 +55,7 @@ void loadFile(const char* fname, map<string,sclass>& maxwellClass, map<string,bo
 		//Ler nome da classe e numero de campos
 		(*f)>>name>>n;
 		isclass[name]=true;
-		v=&maxwellClass[name];
+		v=&yaelClass[name];
 		
 		for(j=0;j<n;j++){
 			//Ler campo j da classe i  e numero de linhas do campo j
@@ -81,7 +81,7 @@ void loadFile(const char* fname, map<string,sclass>& maxwellClass, map<string,bo
 	for(i=0;i<NC;i++){
 		//Ler nome do objeto , pai, x, y, z
 		(*f)>>name;
-		isobj[name]=true; w=&maxwellObj[name];
+		isobj[name]=true; w=&yaelObj[name];
 		(*f)>> w->pai >> w->x >> w->y >>w->z;
 	}
 	
@@ -89,8 +89,8 @@ void loadFile(const char* fname, map<string,sclass>& maxwellClass, map<string,bo
 }
 
 void saveFile(const char* fname, 
-				map<string,sclass>& maxwellClass,  
-				map<string,sobj>& maxwellObj
+				map<string,sclass>& yaelClass,  
+				map<string,sobj>& yaelObj
 			)
 {
 	ofstream f(fname);
@@ -101,15 +101,15 @@ void saveFile(const char* fname,
 		return;
 	}
 	
-	f<<maxwellClass.size()<<endl;
+	f<<yaelClass.size()<<endl;
 	
 	int i, j;
 	int nx, ny, nz, tam;
 	Matrix* m;
 	sf* s;
 	
-	for(map<string, sclass>::iterator it=maxwellClass.begin();
-		it!=maxwellClass.end();it++){
+	for(map<string, sclass>::iterator it=yaelClass.begin();
+		it!=yaelClass.end();it++){
 		
 		f<<it->first<<" "<<it->second.field.size()<<endl;
 		
@@ -129,9 +129,9 @@ void saveFile(const char* fname,
 		
 	}
 	
-	f<<maxwellObj.size()<<endl;
-	for(map<string,sobj>::iterator it=maxwellObj.begin();
-		it!=maxwellObj.end(); it++){
+	f<<yaelObj.size()<<endl;
+	for(map<string,sobj>::iterator it=yaelObj.begin();
+		it!=yaelObj.end(); it++){
 		f<<it->first<<" "<<it->second.pai<<" "<<
 			it->second.x<<" "<<it->second.y<<" "<<it->second.z<<endl;
 	}
