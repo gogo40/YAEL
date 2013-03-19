@@ -22,3 +22,8 @@ echo
 echo "Teste 005"
 echo
 ./yaelc tests/t_005.yl
+
+echo
+echo "Teste 006"
+echo
+./yaelc tests/t_006.yl
