@@ -1,0 +1,32 @@
+//teste de herança
+class A {
+	field1(1,1,1,1) =
+	[1;
+	 1];
+};
+
+class B {
+	field2(1,1,1,1) =
+	[2;
+	 2];
+};
+
+class C: A {
+	field3(1,1,1,1) =
+	[3;
+	 3];
+};
+
+class D: A, B, C {
+	field4(1,1,1,1) =
+	[4;
+	 4];
+};
+
+exec {
+	A obj1(1, 1, 1);
+	B obj2(1, 1, 1);
+	C obj3(1, 1, 1);
+	D obj4(1, 1, 1);
+}
+

@@ -17,3 +17,8 @@ echo
 echo "Teste 004"
 echo
 ./yaelc tests/t_004.yl
+
+echo
+echo "Teste 005"
+echo
+./yaelc tests/t_005.yl
