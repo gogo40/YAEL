@@ -1,0 +1,73 @@
+//Este arquivo gera os arquivos que descrevem a estrutura A e podem ser usados como entrada para o simulador
+class ko{
+bd(1,1,1,3)=[21,3123,421;
+                   312,3123,412];
+a(1,1,1,3)=[2,3,23;
+                 31,31,412];
+};
+
+function change(vector x, real a){
+ 	for(i=0;i<9;i++){
+		x[i]+=a;
+	}
+	return a;
+}
+
+function change2(vector y, real a, real b, real k){
+	for(i=0;i<a;i++){
+		for(j=0;j<b;j++){
+			y[i,j]+=k;
+		}
+	}
+	return 9;
+}
+
+exec{
+	echo "Ola";
+
+	vector x(10);
+
+	for(i=0;i<9;i++){
+		echo i;
+		ko p[i](2,3,2+i);
+		x[i]=i+9;
+	}
+
+	for(i=0;i<9;i++){
+		echo x[i];
+	}
+
+	change(x,200);
+
+	echo "---";
+	echo "000";
+	echo "---";
+
+	for(i=0;i<9;i++){
+		echo x[i];
+	}
+
+	vector y(2,2);
+	for(i=0;i<2;i++){
+		for(j=0;j<2;j++){
+			y[i,j]=i*2+j;
+		}
+	}
+	
+	for(i=0;i<2;i++){
+		for(j=0;j<2;j++){
+			print y[i,j]; print " ";
+		}
+		echo "";
+	}
+
+	change2(y,2,2,300);
+	
+	for(i=0;i<2;i++){
+		for(j=0;j<2;j++){
+			print y[i,j]; print " ";
+		}
+		echo "";
+	}
+
+}

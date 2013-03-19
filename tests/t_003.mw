@@ -1,0 +1,16 @@
+
+//Este arquivo gera os arquivos que descrevem a estrutura A e podem ser usados como entrada para o simulador
+
+class A{
+	bd(2,2,2,3)=
+	[ 
+		1,2,3,4,5;
+		1,2,3,4,5;
+	-1,23,321,41			
+	];
+};
+
+exec{
+	A obj(2,2,1);
+	echo "Ola mundo";
+}
